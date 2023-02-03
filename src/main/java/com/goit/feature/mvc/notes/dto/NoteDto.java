@@ -1,6 +1,7 @@
 package com.goit.feature.mvc.notes.dto;
 
 import com.goit.feature.mvc.notes.Note;
+import lombok.Builder;
 import lombok.Data;
 
 @Data

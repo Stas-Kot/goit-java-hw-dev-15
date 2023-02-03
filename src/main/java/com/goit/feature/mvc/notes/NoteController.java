@@ -1,6 +1,7 @@
 package com.goit.feature.mvc.notes;
 
 import com.goit.feature.mvc.notes.dto.NoteDto;
+import com.goit.feature.mvc.security.SecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +19,19 @@ import java.util.stream.Collectors;
 @RequestMapping("/note")
 public class NoteController {
     private final NoteService noteService;
+    private final SecurityService securityService;
+
+    @GetMapping("/example")
+    public ModelAndView getExample() {
+        return new ModelAndView("notes/example");
+    }
 
     @GetMapping("/list")
     public ModelAndView getList() {
         ModelAndView result = new ModelAndView("notes/list");
         List<NoteDto> notes = noteService.listAll().stream().map(NoteDto::fromNote).collect(Collectors.toList());
         result.addObject("notes", notes);
+        result.addObject("username", securityService.getUsername());
         return result;
     }
 
