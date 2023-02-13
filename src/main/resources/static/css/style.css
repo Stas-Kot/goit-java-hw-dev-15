@@ -1,5 +1,5 @@
 @charset "ISO-8859-1";
-h2{
+/*h2{
  color: aqua;
  font-weight: bold;
  font-variant: inherit;
@@ -15,9 +15,9 @@ body{
   font-family: 'Poppins',sans-serif;
 }
 
-/* ::selection{
+ ::selection{
   background: rgba(26,188,156,0.3);
-} */
+}
 .container{
   max-width: 440px;
   padding: 0 20px;
@@ -113,4 +113,9 @@ form .signup-link a:hover{
 }
 p{
  color: red;
+}*/
+
+input[type="submit"],
+input[type="button"] {
+-webkit-appearance: none;
 }

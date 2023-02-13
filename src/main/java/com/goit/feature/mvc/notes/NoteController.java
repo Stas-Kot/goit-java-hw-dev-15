@@ -29,14 +29,16 @@ public class NoteController {
     @GetMapping("/list")
     public ModelAndView getList() {
         ModelAndView result = new ModelAndView("notes/list");
-        List<NoteDto> notes = noteService.listAll().stream().map(NoteDto::fromNote).collect(Collectors.toList());
+        List<NoteDto> notes = noteService.getListByUser().stream()
+                .map(NoteDto::fromNote)
+                .collect(Collectors.toList());
         result.addObject("notes", notes);
         result.addObject("username", securityService.getUsername());
         return result;
     }
 
     @PostMapping("/delete")
-    public RedirectView delete(@RequestParam(name = "id") long noteId) {
+    public RedirectView delete(@RequestParam(name = "noteId") long noteId) {
         noteService.deleteById(noteId);
         return new RedirectView("list");
     }
@@ -46,18 +48,21 @@ public class NoteController {
         ModelAndView result = new ModelAndView("notes/edit");
         Note note = noteService.getById(id);
         result.addObject("note", NoteDto.fromNote(note));
+        result.addObject("username", securityService.getUsername());
         return result;
     }
 
     @PostMapping("/edit")
     public RedirectView saveUpdatedNote(NoteDto noteDto) {
-        noteService.update(noteDto.toNote());
+        noteService.add(noteDto.toNote());
         return new RedirectView("list");
     }
 
     @GetMapping("/create")
     public ModelAndView create() {
-        return new ModelAndView("notes/create");
+        ModelAndView result = new ModelAndView("notes/create");
+        result.addObject("username", securityService.getUsername());
+        return result;
     }
 
 

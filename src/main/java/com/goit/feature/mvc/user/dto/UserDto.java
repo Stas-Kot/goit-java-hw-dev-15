@@ -1,28 +1,32 @@
 package com.goit.feature.mvc.user.dto;
 
+import com.goit.feature.mvc.notes.Note;
 import com.goit.feature.mvc.user.User;
-import com.goit.feature.mvc.user.UserRole;
+import com.goit.feature.mvc.user.roles.EUserRole;
+import com.goit.feature.mvc.user.roles.UserRole;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class UserDto {
-    private long id;
     private String name;
-    private UserRole role;
+    private EUserRole role;
+    private List<Note> notes;
 
     public static UserDto fromUser(User user) {
         UserDto res = new UserDto();
-        res.setId(user.getId());
-        res.setName(user.getName());
+        res.setName(user.getUsername());
         res.setRole(user.getRole());
+        res.setNotes(user.getNotes());
         return res;
     }
 
     public static User toUser(UserDto userDto) {
         User user = new User();
-        user.setId(userDto.getId());
-        user.setName(userDto.getName());
+        user.setUsername(userDto.getName());
         user.setRole(userDto.getRole());
+        user.setNotes(userDto.getNotes());
         return user;
     }
 }

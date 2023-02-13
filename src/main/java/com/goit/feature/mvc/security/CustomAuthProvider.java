@@ -1,6 +1,6 @@
 package com.goit.feature.mvc.security;
 
-import com.goit.feature.mvc.user.CustomUserDetailsService;
+import com.goit.feature.mvc.user.CustomJdbcUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -8,14 +8,21 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import javax.annotation.PostConstruct;
 
 @RequiredArgsConstructor
 @Service
 public class CustomAuthProvider implements AuthenticationProvider {
-    private final CustomUserDetailsService userDetailsPasswordService;
+    private final CustomJdbcUserDetailsService userDetailsPasswordService;
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @PostConstruct
+    public void init() {
+        passwordEncoder = new BCryptPasswordEncoder();
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -32,7 +39,7 @@ public class CustomAuthProvider implements AuthenticationProvider {
     }
 
     private Authentication checkPassword(UserDetails user, String rawPassword) {
-        if(Objects.equals(rawPassword, user.getPassword())) {
+        if (passwordEncoder.matches(rawPassword, user.getPassword())) {
             return new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
         } else {
             throw new BadCredentialsException("Bad Credentials");

@@ -104,12 +104,14 @@
                     <form name="noteItem" method="post" action="/note/delete">
                         <h3 th:text="${note.title}" style="word-break: break-all;"></h3>
                         <p th:text="${note.content}" style="word-break: break-all;"></p>
-                        <input name="id" type="text" th:value="${note.id}" hidden/>
-                        <p><span><button type="button"
-                                         style="width: 150px; height: 50px; border-radius: 15px; font-size: 25px;  background-color: #000066; color: white;"><a
-                                th:href="@{'/note/edit?id=' + ${note.id}}">Edit</a></button></span> <span><input
+                        <input name="noteId" type="text" th:value="${note.noteId}" hidden/>
+                        <p><span>
+                            <a th:href="@{'/note/edit?id=' + ${note.noteId}}">
+                                <input type="button" value="Edit" style="-webkit-appearance: none; width: 150px; height: 50px; border-radius: 15px; font-size: 25px;  background-color: #000066; color: white;"/>
+                            </a>
+                        </span> <span><input
                                 type="submit" value="Delete"
-                                style="width: 150px; height: 50px; border-radius: 15px; font-size: 25px; background-color: #000066; color: white;"/></span>
+                                style="-webkit-appearance: none; width: 150px; height: 50px; border-radius: 15px; font-weight: 400; font-size: 25px; background-color: #000066; color: white;"/></span>
                         </p>
                     </form>
                 </li>

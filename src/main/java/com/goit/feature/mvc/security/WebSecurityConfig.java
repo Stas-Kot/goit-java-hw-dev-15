@@ -50,7 +50,9 @@ public class WebSecurityConfig {
                 .authenticated()
                 .and()
                 .formLogin(form -> form.loginPage("/login")
-                        .permitAll())
+                        .permitAll()
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/note/list", true))
                 .logout(logout -> logout.permitAll()
                 .logoutSuccessHandler((request, response, authentication) -> {
                     response.sendRedirect("/note/list");

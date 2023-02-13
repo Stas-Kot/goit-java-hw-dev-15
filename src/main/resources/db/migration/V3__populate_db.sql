@@ -1,8 +1,7 @@
-INSERT INTO note (title, content) VALUES
-('Product List', 'milk, water, apples'),
-('Tasks for tomorrow', 'morning running, meet Bob, party at Soho');
-
-INSERT INTO users (name, password, role) VALUES
-('Crock', '111', 'ADMIN'),
-('user', 'jdbcDefault', 'USER'),
-('user2', '222', 'USER');
+INSERT INTO notes (user_name, title, content) VALUES
+('Crock', 'Valentines Day', 'send flowers'),
+('user2', 'Igor BDay', 'send gift'),
+('user', 'Valentines Day', 'send flowers'),
+('user', 'Product List', 'milk, water, apples'),
+('user', 'Tasks for tomorrow', 'morning running, meet Bob, party at Soho'),
+('user2', 'Match Day', 'bring beer');
